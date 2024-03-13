@@ -45,6 +45,7 @@ node {
                                          "service.yaml")
         }
       }
+    }
   }
 }
 
