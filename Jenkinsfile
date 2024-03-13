@@ -45,7 +45,7 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
-            container('maven') {
+            container('test') {
                 stage('Build a Maven project') {
                     sh 'echo "hello"'
                 }
