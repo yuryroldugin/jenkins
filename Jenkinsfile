@@ -1,7 +1,11 @@
 podTemplate {
     node(POD_LABEL) {
-        stage('Run shell') {
-            sh 'echo hello world'
+    stage('Build-Docker-Image') {
+      steps {
+        container('docker') {
+          sh 'docker build -t testing-image:latest .'
         }
+      }
+    }
     }
 }
