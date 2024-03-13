@@ -3,12 +3,10 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
-        stage('Clone') {
-          steps {
-            container('docker') {
-              git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
-                }
-            }
+      stage('Clone') {
+        container('docker') {
+          git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
         }
+      }
     }
 }
