@@ -1,8 +1,9 @@
-environment {
-  image = test
-}
-
 node {
+  environment {
+    image = test
+  }
+
+
     def app
 
     stage('Clone repository') {
