@@ -1,3 +1,7 @@
+environment {
+  image = test
+}
+
 node {
     def app
 
@@ -19,6 +23,7 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
         docker.image("quay.io/rin_whoami/docker-kubernetes").withRun('-p 8082:80') {c ->
         sh "curl localhost:8082"
+        sh "echo ENV.test"
         }
     }
 
