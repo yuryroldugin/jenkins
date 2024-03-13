@@ -41,13 +41,14 @@ node {
   }
 }
 podTemplate(containers: [
-    containerTemplate(name: 'test', image: 'quay.io/rin_whoami/docker-kubernetes', command: 'sleep', args: '99d')
-  ]) 
+    containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', command: 'sleep', args: '99d'),
+  ]) {
 
-node(POD_LABEL) {
-  container('test') {
-    stage('Test application') {
-      sh 'curl localhost'
-    }
-  }
+    node(POD_LABEL) {
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh 'echo "hello"'
+                }
+            }
+        }
 }
