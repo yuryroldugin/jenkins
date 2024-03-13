@@ -1,34 +1,41 @@
-pipeline {
-  environment {
+environment {
   registry = "quay.io/rin_whoami/docker-kubernetes)"
   registryCredential = 'quay'
   dockerImage = ''
-  }
-agent any
-  stages {
-    stage('Cloning our Git') {
-      checkout scm
+}
+
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+
+        checkout scm
     }
-    stage('Building our image') {
-      steps {
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("quay.io/rin_whoami/docker-kubernetes")
+    }
+
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+        docker.image("quay.io/rin_whoami/docker-kubernetes").withRun('-p 8082:80') {c ->
+        sh "curl localhost:8082"
         }
-      }
     }
-    stage('Deploy our image') {
-      steps {
-        script {
-          docker.withRegistry( '', registryCredential ) {
-          dockerImage.push()
-          }
-        }
-      }
-    }
-    stage('Cleaning up') {
-      steps {
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }
-  }
+
+//    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+//        docker.withRegistry('https://quay.io', 'quay') {
+//            app.push("${env.BUILD_NUMBER}")
+//            app.push("latest")
+//        }
+//    }
 }
