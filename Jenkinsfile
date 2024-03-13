@@ -1,9 +1,8 @@
-environment {
-    registry = "quay.io/rin_whoami/docker-kubernetes"
-    registryCredential = ‘quay’
-}
-
 node {
+  environment {
+      registry = "gustavoapolinario/docker-test"
+      registryCredential = ‘dockerhub’
+  }
     def app
 
     stage('Clone repository') {
@@ -16,13 +15,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build(${registry})
+        app = docker.build(registry)
     }
 
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-        docker.image(${registry}).withRun('-p 8082:80') {c ->
+        docker.image(registry).withRun('-p 8082:80') {c ->
         sh "curl localhost:8082"
         }
     }
