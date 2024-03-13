@@ -4,10 +4,10 @@ podTemplate(containers: [
 
   node(POD_LABEL) {
         stage('Get a project') {
-            git 'https://github.com/jenkinsci/kubernetes-plugin.git'
+            git 'https://github.com/yuryroldugin/jenkins.git'
             container('docker') {
-                stage('Build a Maven project') {
-                    sh 'mvn -B -ntp clean install'
+                stage('Build an image') {
+                    sh 'docker build -t image .'
                 }
             }
         }
