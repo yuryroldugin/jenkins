@@ -15,7 +15,7 @@ node {
     }
 
     stage('Test image') {
-        docker.image('quay.io/rin_whoami/docker-kubernetes').withRun {c ->    
+        docker.image('quay.io/rin_whoami/docker-kubernetes').run {c ->    
         } 
     }
 
