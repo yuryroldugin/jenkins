@@ -3,13 +3,15 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
-        stage('Get a project') {
-            git 'https://github.com/yuryroldugin/jenkins.git'
-            container('php') {
-                stage('Show a project') {
-                    sh 'ls -a'
-                }
-            }
+      stage('Clone') {
+          container('php') {
+            git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
+          }
+      }    
+      stage('Show a project') {
+        container('php') {
+          sh 'ls -a'
         }
+      }
    }
 }
