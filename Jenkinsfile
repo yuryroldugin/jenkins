@@ -18,10 +18,11 @@ node {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
-        app.inside {
-            sh 'curl localhost'
-        }
-    }
+//        app.inside {
+// sh 'curl localhost'
+//}
+        docker.image('quay.io/rin_whoami/docker-kubernetes').withRun {c ->    
+        } 
 
 //    stage('Push image') {
         /* Finally, we'll push the image with two tags:
