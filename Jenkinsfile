@@ -38,10 +38,13 @@ node {
             app.push()
         }
     }
+    stage('Deploying js container to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deployment.yaml",
+                                         "service.yaml")
+        }
+      }
   }
 }
-podTemplate(containers: [
-    containerTemplate(name: 'test', image: 'quay.io/rin_whoami/docker-kubernetes'),
-  ]) {
 
-}
