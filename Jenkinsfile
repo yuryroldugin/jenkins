@@ -1,33 +1,15 @@
-podTemplate(yaml: '''
-    apiVersion: v1
-    kind: Pod
-    spec:
-      containers:
-      - name: docker
-        image: docker:latest
-        command:
-        - sleep
-        args:
-        - 99d
-        volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-sock
-        volumes:
-        - name: docker-sock
-          hostPath:
-          path: /var/run/docker.sock
-''') {
+podTemplate(containers: [
+    containerTemplate(name: 'php', image: 'php', command: 'sleep', args: '99d'),
+  ]) {
+
     node(POD_LABEL) {
-      stage('Clone') {
-        container('docker') {
-          git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
+        stage('Get a project') {
+            git 'https://github.com/yuryroldugin/jenkins.git'
+            container('php') {
+                stage('Show a project') {
+                    sh 'ls -a'
+                }
+            }
         }
-      }  
-      stage('Build') {
-        container('docker') {
-            sh 'ls -a'
-            sh 'docker build -t image .'
-        }
-      }
    }
 }
