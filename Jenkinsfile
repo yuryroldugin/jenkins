@@ -30,6 +30,6 @@ node {
 //        docker.withRegistry('https://quay.io', 'quay') {
 //            app.push("${env.BUILD_NUMBER}")
 //            app.push("latest")
-        }
+//        }
 //    }
 }
