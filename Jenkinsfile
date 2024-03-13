@@ -44,11 +44,4 @@ podTemplate(containers: [
     containerTemplate(name: 'test', image: 'quay.io/rin_whoami/docker-kubernetes'),
   ]) {
 
-    node(POD_LABEL) {
-            container('test') {
-                stage('Build a Maven project') {
-                    sh 'echo "hello"'
-                }
-            }
-        }
 }
