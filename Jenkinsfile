@@ -7,6 +7,9 @@ podTemplate(containers: [
         container('docker') {
           git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
         }
-      }
+      }  
+      stage('Run shell') {
+            sh 'ls -la'
+        }
     }
 }
