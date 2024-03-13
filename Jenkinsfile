@@ -8,8 +8,8 @@ podTemplate(containers: [
           git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
         }
       }  
-      stage('Run shell') {
-            sh 'ls -la'
+      stage('Build') {
+            sh 'docker build -t image .'
         }
     }
 }
