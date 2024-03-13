@@ -3,14 +3,11 @@ node {
 
     def app
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
+    stage('Git checkout') {
         checkout scm
     }
 
     stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
         app = docker.build( registry )
     }
   
@@ -21,7 +18,6 @@ node {
         }
     }
     stage('Push image') {
-        /* Finally, we'll push the image */
         docker.withRegistry('https://quay.io', 'quay') {
             app.push()
         }
@@ -34,10 +30,11 @@ podTemplate(inheritFrom: 'default')
 {
   withEnv(['repo=https://github.com/yuryroldugin/jenkins.git']) {
   
-  node(POD_LABEL){
+  node(POD_LABEL) {
     stage('Deploy Application') {
       git url: repo, branch: 'main'
       withKubeConfig([credentialsId: 'jenkins']) {
+        /* I'm too lazy to build my own container image for the Jenkins agent */
         sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.28.7/bin/linux/amd64/kubectl"'
         sh 'chmod u+x ./kubectl'
         sh './kubectl get all'
