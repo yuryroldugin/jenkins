@@ -11,6 +11,7 @@ podTemplate(containers: [
       stage('Show a project') {
         container('php') {
           sh 'ls -a'
+          sh 'cp index.html /var/www/html'
         }
       }
    }
