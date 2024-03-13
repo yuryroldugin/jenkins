@@ -40,10 +40,14 @@ node {
     }
   }
 }
-podTemplate {
-    node(POD_LABEL) {
-        stage('Run shell') {
-            sh 'echo hello world'
-        }
+podTemplate(containers: [
+    containerTemplate(name: 'test', image: 'quay.io/rin_whoami/docker-kubernetes'')
+  ]) 
+
+node(POD_LABEL) {
+  container('test') {
+    stage('Test application') {
+      sh 'curl localhost'
     }
+  }
 }
