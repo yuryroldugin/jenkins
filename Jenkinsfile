@@ -37,4 +37,10 @@ node {
 
   }
 }
-
+podTemplate {
+    node(POD_LABEL) {
+        stage('Run shell') {
+            sh 'kubectl --help'
+        }
+    }
+}
