@@ -4,7 +4,9 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: docker
-        image: docker:dind
+        image: docker
+        securityContext:
+          privileged: true
         command:
         - sleep
         args:
