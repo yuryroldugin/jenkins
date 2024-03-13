@@ -1,8 +1,6 @@
 node {
-  environment {
-      REGISTRY = "gustavoapolinario/docker-test"
-      registryCredential = ‘dockerhub’
-  }
+    def REGISTRY = "gustavoapolinario/docker-test"
+    def registryCredential = ‘dockerhub’
     def app
 
     stage('Clone repository') {
