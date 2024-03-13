@@ -1,18 +1,29 @@
-podTemplate(containers: [
-    containerTemplate(name: 'php', image: 'php', command: 'sleep', args: '99d'),
-  ]) {
-
-    node(POD_LABEL) {
-      stage('Clone') {
-          container('php') {
-            git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
-          }
-      }    
-      stage('Show a project') {
-        container('php') {
-          sh 'ls -a'
-          sh 'cp index.html /var/www/html'
-        }
-      }
-   }
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:alpine
+            command:
+            - cat
+            tty: true
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+          volumes:
+          - name: docker-sock
+            hostPath:
+              path: /var/run/docker.sock    
+        '''
+    }
+  }
 }
