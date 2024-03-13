@@ -9,7 +9,10 @@ podTemplate(containers: [
         }
       }  
       stage('Build') {
+        container('docker') {
+            sh 'ls -a'
             sh 'docker build -t image .'
         }
-    }
+      }
+   }
 }
