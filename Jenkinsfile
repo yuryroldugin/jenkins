@@ -1,7 +1,7 @@
 node {
     def app
 
-    def registry {
+    def registry() {
       return "quay.io/rin_whoami/docker-kubernetes"
     }
 
