@@ -1,3 +1,8 @@
+environment {
+    registry = "quay.io/rin_whoami/docker-kubernetes"
+    registryCredential = ‘quay’
+}
+
 node {
     def app
 
@@ -11,13 +16,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("test")
+        app = docker.build(registry)
     }
 
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-        docker.image('test').withRun('-p 8082:80') {c ->
+        docker.image(registry).withRun('-p 8082:80') {c ->
         sh "curl localhost:8082"
         }
     }
