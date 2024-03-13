@@ -17,7 +17,8 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("quay.io/rin_whoami/docker-kubernetes")
+        app = docker.build( registry )
+//        app = docker.build("quay.io/rin_whoami/docker-kubernetes")
     }
 
     stage('Test image') {
