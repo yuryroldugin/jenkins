@@ -3,14 +3,8 @@ podTemplate(yaml: '''
     kind: Pod
     spec:
       containers:
-      - name: maven
-        image: maven:3.8.1-jdk-8
-        command:
-        - sleep
-        args:
-        - 99d
-      - name: golang
-        image: golang:1.16.5
+      - name: docker
+        image: docker
         command:
         - sleep
         args:
@@ -19,25 +13,13 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
     stage('Get a Maven project') {
       git 'https://github.com/jenkinsci/kubernetes-plugin.git'
-      container('maven') {
+      container('docker') {
         stage('Build a Maven project') {
-          sh 'mvn -B -ntp clean install'
+          sh 'docker run hello-world'
         }
       }
     }
 
-    stage('Get a Golang project') {
-      git url: 'https://github.com/hashicorp/terraform-provider-google.git', branch: 'main'
-      container('golang') {
-        stage('Build a Go project') {
-          sh '''
-            mkdir -p /go/src/github.com/hashicorp
-            ln -s `pwd` /go/src/github.com/hashicorp/terraform
-            cd /go/src/github.com/hashicorp/terraform && make
-          '''
-        }
-      }
-    }
 
   }
 }
