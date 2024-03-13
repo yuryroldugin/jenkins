@@ -1,14 +1,14 @@
 pipeline {
   environment {
-  registry = "YourDockerhubAccount/YourRepository"
-  registryCredential = 'dockerhub_id'
+  registry = "quay.io/rin_whoami/docker-kubernetes)"
+  registryCredential = 'quay'
   dockerImage = ''
   }
 agent any
   stages {
     stage('Cloning our Git') {
       steps {
-        git 'https://github.com/YourGithubAccount/YourGithubRepository.git'
+        git 'https://github.com/yuryroldugin/jenkins.git'
       }
     }
     stage('Building our image') {
