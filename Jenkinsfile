@@ -19,6 +19,7 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
         docker.image('test').withRun('-p 8082:80') {c ->
         sh "docker wait ${c.id}"
+        sh "curl localhost:8082"
         }
     }
 
