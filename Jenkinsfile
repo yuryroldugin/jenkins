@@ -1,11 +1,9 @@
-environment {
-  registry = "quay.io/rin_whoami/docker-kubernetes)"
-  registryCredential = 'quay'
-  dockerImage = ''
-}
-
 node {
     def app
+
+    def registry {
+      return "quay.io/rin_whoami/docker-kubernetes"
+    }
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
