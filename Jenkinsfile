@@ -1,6 +1,6 @@
 node {
   environment {
-      registry = "gustavoapolinario/docker-test"
+      REGISTRY = "gustavoapolinario/docker-test"
       registryCredential = ‘dockerhub’
   }
     def app
@@ -15,7 +15,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build($registry)
+        app = docker.build($REGISTRY)
     }
 
     stage('Test image') {
