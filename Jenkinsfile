@@ -4,7 +4,7 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: docker
-        image: docker
+        image: docker:stable-dind
         command:
         - sleep
         args:
