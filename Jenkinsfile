@@ -1,4 +1,4 @@
-node {
+/*node {
     withEnv(['registry=quay.io/rin_whoami/docker-kubernetes']) {
       stage('Blah') {
         sh 'echo Hello, ${registry}'
@@ -44,7 +44,7 @@ node {
 //    }
 
   }
-}
+}*/
 
 podTemplate(inheritFrom: 'default')
 {
