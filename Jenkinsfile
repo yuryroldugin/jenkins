@@ -3,7 +3,7 @@ pipeline {
   registry = "YourDockerhubAccount/YourRepository"
   registryCredential = 'dockerhub_id'
   dockerImage = ''
-}
+  }
 agent any
   stages {
     stage('Cloning our Git') {
@@ -32,4 +32,5 @@ agent any
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
+  }
 }
