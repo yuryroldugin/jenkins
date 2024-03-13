@@ -29,23 +29,18 @@ node {
         }
     }
     stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
+        /* Finally, we'll push the image */
         docker.withRegistry('https://quay.io', 'quay') {
-//            app.push(registry)
             app.push()
         }
     }
-    stage('Deploying js container to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml",
-                                         "service.yaml")
-        }
-      }
-    }
   }
 }
+
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: test
+    image: 'quay.io/rin_whoami/docker-kubernetes'
 
