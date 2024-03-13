@@ -3,14 +3,12 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
-        stage('Get a Maven project') {
-            git 'https://github.com/yuryroldugin/jenkins.git'
+        stage('Clone') {
+          steps {
             container('docker') {
-                stage('Build a Maven project') {
-                    sh 'docker build -t image .'
+              git branch: 'main', changelog: false, poll: false, url: 'https://github.com/yuryroldugin/jenkins.git'
                 }
             }
         }
-
     }
 }
