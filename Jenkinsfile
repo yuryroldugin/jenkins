@@ -1,6 +1,6 @@
 node {
     def REGISTRY = "gustavoapolinario/docker-test"
-    def registryCredential = ‘dockerhub’
+    def registryCredential = ‘quay’
     def app
 
     stage('Clone repository') {
