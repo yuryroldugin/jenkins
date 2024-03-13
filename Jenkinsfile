@@ -20,15 +20,15 @@ node {
         app = docker.build( registry )
 //        app = docker.build("quay.io/rin_whoami/docker-kubernetes")
     }
- } 
+  
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-        docker.image("quay.io/rin_whoami/docker-kubernetes").withRun('-p 8082:80') {c ->
+        docker.image( registry )withRun( '-p 8082:80' ) {c ->
         sh "curl localhost:8082"
         }
     }
-
+  }
 //    stage('Push image') {
         /* Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
