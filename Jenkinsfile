@@ -41,7 +41,7 @@ node {
   }
 }
 podTemplate(containers: [
-    containerTemplate(name: 'test', image: 'quay.io/rin_whoami/docker-kubernetes', command: 'sleep', args: '99d'),
+    containerTemplate(name: 'test', image: 'quay.io/rin_whoami/docker-kubernetes'),
   ]) {
 
     node(POD_LABEL) {
