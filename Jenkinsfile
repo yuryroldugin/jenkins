@@ -7,9 +7,7 @@ pipeline {
 agent any
   stages {
     stage('Cloning our Git') {
-      steps {
-        git 'https://github.com/yuryroldugin/jenkins.git'
-      }
+      checkout scm
     }
     stage('Building our image') {
       steps {
