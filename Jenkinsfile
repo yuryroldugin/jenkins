@@ -1,5 +1,5 @@
 node {
-    withEnv(['registry=jump.k8s.flane.ru/library/docker-kubernetes']) {
+    withEnv(['registry=quay.io/rin_whoami/docker-kubernetes']) {
 
     def app
 
@@ -18,7 +18,7 @@ node {
         }
     }
     stage('Push image') {
-        docker.withRegistry('https://jump.k8s.flane.ru', 'jump') {
+        docker.withRegistry('https://quay.io', 'quay') {
             app.push()
         }
     }

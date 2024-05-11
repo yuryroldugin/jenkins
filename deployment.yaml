@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: test
-        image: jump.k8s.flane.ru/library/docker-kubernetes
+        image: quay.io/rin_whoami/docker-kubernetes
         imagePullPolicy: Always
         ports:
         - containerPort: 80
